@@ -15,9 +15,18 @@ p = zeros(m, 1);
 %               You should set p to a vector of 0's and 1's
 %
 
+% Calculates the sigmoid function of f(z) = 1/(1 + e^-z);
+g = sigmoid(X * theta);
 
-
-
+% For each value of the predictions we either set a zero or one depending on 
+% the value of the sigmoid function.
+for i=1:m
+    if (g(i) >= 0.5)
+        p(i) = 1;
+    else
+        p(i) = 0;
+    end
+end
 
 
 

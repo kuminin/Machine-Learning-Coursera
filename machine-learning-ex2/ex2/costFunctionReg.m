@@ -16,9 +16,21 @@ grad = zeros(size(theta));
 %               You should set J to the cost.
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
+features = length(theta);
+h = sigmoid(X * theta);
 
+% Calculates the sum of squares from 1 to n. We don't include zero because in
+% Regularized Logistic Regression, we do not want to change the first theta
+% value.
+% Vectorized implementation to calculate the cost.
+J = (1 / m) * (-y' * log(h) - (1 - y)' * log(1 - h)) + ...
+    (lambda / (2 * m)) * sumsqr(theta(2:features));
 
-
+% Vectorized impleentation to claculate the gradient.
+grad = (1 / m) * (X' * (h - y));
+% As stated before, since we do not want to update the first theta, we update
+% every gradient, excluding the first one, by (lambda/m) * theta.
+grad(2:features) = grad(2:features) + (lambda / m) * theta(2:features);
 
 
 
